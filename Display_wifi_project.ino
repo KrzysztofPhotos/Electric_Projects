@@ -1,6 +1,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <LiquidCrystal_I2C.h>
+#include <Wire.h> 
+
 
 // Ustawienia sieci Wi-Fi
 const char* ssid = "StealthNet";
@@ -10,7 +12,7 @@ const char* password = "Gt%>SB#sW:EuS@qu_5A$w";
 ESP8266WebServer server(80);
 
 // Ustawienia wyświetlacza
-LiquidCrystal_I2C lcd(0x27, 16, 2);
+LiquidCrystal_I2C lcd(0x27,20,4);
 
 String text = ""; // Zmienna przechowująca wpisany tekst
 
@@ -36,6 +38,20 @@ void handleSubmit() {
 }
 
 void setup() {
+
+  Serial.begin(115200);
+
+  lcd.init();                      // initialize the lcd 
+  lcd.init();
+  // Print a message to the LCD.
+  lcd.backlight();
+  lcd.setCursor(3,0);
+  lcd.print("Hello, world!");
+  lcd.setCursor(2,1);
+  lcd.print("Ywrobot Arduino!");
+
+  delay(5000);
+
   lcd.begin(16, 2);
   lcd.print("Arduino WiFi");
   lcd.setCursor(0, 1);
