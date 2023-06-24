@@ -102,6 +102,8 @@ void setup() {
 
   lcd.clear(); // Wyczyść ekran
 
+  EEPROM.begin(512); // Inicjalizacja pamięci flash jako pamięci EEPROM
+
   // Odczytaj tekst dla pierwszej linii z pamięci EEPROM
   char character_line1;
   int i = 0;
@@ -131,4 +133,15 @@ void setup() {
 
 void loop() {
   server.handleClient();
+
+  static unsigned long previousMillis = 0;
+  const unsigned long interval = 3000; // Interwał 3 sekundy
+
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+
+    Serial.println("Line 1: " + text_line1);
+    Serial.println("Line 2: " + text_line2);
+  }
 }
