@@ -12,11 +12,11 @@ const char* password = "Gt%>SB#sW:EuS@qu_5A$w";
 ESP8266WebServer server(80);
 
 // Ustawienia wyświetlaczy
-LiquidCrystal_I2C lcd1(0x24, 20, 4);
-LiquidCrystal_I2C lcd2(0x26, 20, 4);
-LiquidCrystal_I2C lcd3(0x25, 20, 4);
-LiquidCrystal_I2C lcd4(0x27, 20, 4);
-LiquidCrystal_I2C lcd5(0x23, 20, 4);
+LiquidCrystal_I2C lcd1(0x24, 16, 2);
+LiquidCrystal_I2C lcd2(0x26, 16, 2);
+LiquidCrystal_I2C lcd3(0x25, 16, 2);
+LiquidCrystal_I2C lcd4(0x27, 16, 2);
+LiquidCrystal_I2C lcd5(0x23, 16, 2);
 
 // Adresy w pamięci EEPROM, w których przechowywane będą teksty
 int address_line1 = 0;
@@ -254,36 +254,48 @@ void setup() {
 
   lcd3.init();  // Inicjalizacja drugiego wyświetlacza
   lcd3.backlight();
+  lcd3.setCursor(0, 0);
+  lcd3.print("Welcome!");
+  lcd3.setCursor(0, 1);
+  lcd3.print(":D");
 
   lcd4.init();  // Inicjalizacja drugiego wyświetlacza
   lcd4.backlight();
+  lcd4.setCursor(0, 0);
+  lcd4.print("Welcome!");
+  lcd4.setCursor(0, 1);
+  lcd4.print(":D");
 
   lcd5.init();  // Inicjalizacja drugiego wyświetlacza
   lcd5.backlight();
+  lcd5.setCursor(0, 0);
+  lcd5.print("Welcome!");
+  lcd5.setCursor(0, 1);
+  lcd5.print(":D");
 
   delay(500);
 
-  lcd1.begin(20, 4);
+  lcd1.begin(16, 2);
   lcd1.print("Arduino WiFi");
   lcd1.setCursor(0, 1);
   lcd1.print("Waiting for WiFi");
 
-  lcd2.begin(20, 4);
+  lcd2.begin(16, 2);
   lcd2.print("Arduino WiFi");
   lcd2.setCursor(0, 1);
   lcd2.print("Waiting for WiFi");
 
-  lcd3.begin(20, 4);
+  lcd3.begin(16, 2);
   lcd3.print("Arduino WiFi");
   lcd3.setCursor(0, 1);
   lcd3.print("Waiting for WiFi");
 
-  lcd4.begin(20, 4);
+  lcd4.begin(16, 2);
   lcd4.print("Arduino WiFi");
   lcd4.setCursor(0, 1);
   lcd4.print("Waiting for WiFi");
 
-  lcd5.begin(20, 4);
+  lcd5.begin(16, 2);
   lcd5.print("Arduino WiFi");
   lcd5.setCursor(0, 1);
   lcd5.print("Waiting for WiFi");
