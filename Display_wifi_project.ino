@@ -92,8 +92,6 @@ void setup() {
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
-    // lcd.setCursor(0, 1);
-    // lcd.print(".");
   }
 
   lcd.clear();
@@ -102,8 +100,6 @@ void setup() {
   lcd.setCursor(0, 1);
   lcd.print("IP:" + WiFi.localIP().toString());
   delay(3000); // Wyświetlaj adres IP przez 3 sekundy
-
-  lcd.clear(); // Wyczyść ekran
 
   EEPROM.begin(512); // Inicjalizacja pamięci flash jako pamięci EEPROM
 
@@ -123,10 +119,11 @@ void setup() {
     i++;
   }
 
-  lcd.setCursor(0, 2);
-  lcd.print("Line 1: " + text_line1);
-  lcd.setCursor(0, 3);
-  lcd.print("Line 2: " + text_line2);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(text_line1);
+  lcd.setCursor(0, 1);
+  lcd.print(text_line2);
 
   server.on("/", handleRoot);
   server.on("/submit", handleSubmit);
@@ -158,11 +155,5 @@ void loop() {
       text_line2 += character_line2;
       i++;
     }
-
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print(text_line1);
-    lcd.setCursor(0, 1);
-    lcd.print(text_line2);
   }
 }
