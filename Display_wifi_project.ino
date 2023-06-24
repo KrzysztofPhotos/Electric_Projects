@@ -21,14 +21,17 @@ int address_line2 = 32; // Przesunięcie o 32 bajty dla drugiej linii
 String text_line1 = ""; // Zmienna przechowująca wpisany tekst dla pierwszej linii
 String text_line2 = ""; // Zmienna przechowująca wpisany tekst dla drugiej linii
 
+unsigned long previousMillis = 0;
+const unsigned long interval = 5000; // Interwał 5 sekund
+
 void handleRoot() {
   lcd.clear();
   String html = "<html><body>";
   html += "<h1>Arduino WiFi - Wyświetlacz</h1>";
   html += "<form method='get' action='/submit'>";
-  html += "<input type='text' name='text_line1' placeholder='Line 1'>";
+  html += "<input type='text' name='text_line1' placeholder='Line 1' maxlength='16'>";
   html += "<br>";
-  html += "<input type='text' name='text_line2' placeholder='Line 2'>";
+  html += "<input type='text' name='text_line2' placeholder='Line 2' maxlength='16'>";
   html += "<br>";
   html += "<input type='submit' value='OK'>";
   html += "</form>";
@@ -74,12 +77,12 @@ void setup() {
 
   lcd.init(); // Inicjalizacja wyświetlacza
   lcd.backlight();
-  lcd.setCursor(3, 0);
-  lcd.print("Hello, world!");
-  lcd.setCursor(2, 1);
+  lcd.setCursor(0, 0);
   lcd.print("Welcome!");
+  lcd.setCursor(0, 1);
+  lcd.print(":D");
 
-  delay(1000);
+  delay(500);
 
   lcd.begin(20, 4);
   lcd.print("Arduino WiFi");
@@ -89,15 +92,15 @@ void setup() {
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
-    lcd.setCursor(0, 1);
-    lcd.print(".");
+    // lcd.setCursor(0, 1);
+    // lcd.print(".");
   }
 
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Connected to WiFi");
   lcd.setCursor(0, 1);
-  lcd.print("IP: " + WiFi.localIP().toString());
+  lcd.print("IP:" + WiFi.localIP().toString());
   delay(3000); // Wyświetlaj adres IP przez 3 sekundy
 
   lcd.clear(); // Wyczyść ekran
@@ -134,14 +137,32 @@ void setup() {
 void loop() {
   server.handleClient();
 
-  static unsigned long previousMillis = 0;
-  const unsigned long interval = 3000; // Interwał 3 sekundy
-
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
 
-    Serial.println("Line 1: " + text_line1);
-    Serial.println("Line 2: " + text_line2);
+    // Odczytaj tekst dla pierwszej linii z pamięci EEPROM
+    char character_line1;
+    int i = 0;
+    text_line1 = ""; // Wyczyść zmienną przechowującą tekst
+    while ((character_line1 = EEPROM.read(address_line1 + i)) != '\0') {
+      text_line1 += character_line1;
+      i++;
+    }
+
+    // Odczytaj tekst dla drugiej linii z pamięci EEPROM
+    char character_line2;
+    i = 0;
+    text_line2 = ""; // Wyczyść zmienną przechowującą tekst
+    while ((character_line2 = EEPROM.read(address_line2 + i)) != '\0') {
+      text_line2 += character_line2;
+      i++;
+    }
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(text_line1);
+    lcd.setCursor(0, 1);
+    lcd.print(text_line2);
   }
 }
