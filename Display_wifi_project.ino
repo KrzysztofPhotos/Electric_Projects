@@ -23,24 +23,22 @@ int address_line1 = 0;
 int address_line2 = 32;  // Przesunięcie o 32 bajty dla drugiej linii
 int address_line3 = 64;  // Przesunięcie o 64 bajty dla trzeciej linii
 int address_line4 = 96;  // Przesunięcie o 96 bajtów dla czwartej linii
-
-int address_line5 = 128;  // Przesunięcie o 96 bajtów dla czwartej linii
-int address_line6 = 160;  // Przesunięcie o 96 bajtów dla czwartej linii
-int address_line7 = 192;  // Przesunięcie o 96 bajtów dla czwartej linii
-int address_line8 = 224;  // Przesunięcie o 96 bajtów dla czwartej linii
-int address_line9 = 256;  // Przesunięcie o 96 bajtów dla czwartej linii
+int address_line5 = 128;   // Przesunięcie o 96 bajtów dla czwartej linii
+int address_line6 = 160;   // Przesunięcie o 96 bajtów dla czwartej linii
+int address_line7 = 192;   // Przesunięcie o 96 bajtów dla czwartej linii
+int address_line8 = 224;   // Przesunięcie o 96 bajtów dla czwartej linii
+int address_line9 = 256;   // Przesunięcie o 96 bajtów dla czwartej linii
 int address_line10 = 288;  // Przesunięcie o 96 bajtów dla czwartej linii
 
 String text_line1 = "";  // Zmienna przechowująca wpisany tekst dla pierwszej linii
 String text_line2 = "";  // Zmienna przechowująca wpisany tekst dla drugiej linii
 String text_line3 = "";  // Zmienna przechowująca wpisany tekst dla trzeciej linii
 String text_line4 = "";  // Zmienna przechowująca wpisany tekst dla czwartej linii
-
-String text_line5 = "";  // Zmienna przechowująca wpisany tekst dla czwartej linii
-String text_line6 = "";  // Zmienna przechowująca wpisany tekst dla czwartej linii
-String text_line7 = "";  // Zmienna przechowująca wpisany tekst dla czwartej linii
-String text_line8 = "";  // Zmienna przechowująca wpisany tekst dla czwartej linii
-String text_line9 = "";  // Zmienna przechowująca wpisany tekst dla czwartej linii
+String text_line5 = "";   // Zmienna przechowująca wpisany tekst dla czwartej linii
+String text_line6 = "";   // Zmienna przechowująca wpisany tekst dla czwartej linii
+String text_line7 = "";   // Zmienna przechowująca wpisany tekst dla czwartej linii
+String text_line8 = "";   // Zmienna przechowująca wpisany tekst dla czwartej linii
+String text_line9 = "";   // Zmienna przechowująca wpisany tekst dla czwartej linii
 String text_line10 = "";  // Zmienna przechowująca wpisany tekst dla czwartej linii
 
 unsigned long previousMillis = 0;
@@ -48,11 +46,11 @@ const unsigned long interval = 5000;  // Interwał 5 sekund
 
 void handleRoot() {
   lcd1.clear();
-
   lcd2.clear();
   lcd3.clear();
   lcd4.clear();
   lcd5.clear();
+
   String html = "<html><body>";
   html += "<h1>Arduino WiFi - Wyświetlacz</h1>";
   html += "<form method='get' action='/submit'>";
@@ -64,7 +62,6 @@ void handleRoot() {
   html += "<br>";
   html += "<input type='text' name='text_line4' placeholder='Line 4' maxlength='16'>";
   html += "<br>";
-
   html += "<input type='text' name='text_line5' placeholder='Line 5' maxlength='16'>";
   html += "<br>";
   html += "<input type='text' name='text_line6' placeholder='Line 6' maxlength='16'>";
@@ -85,11 +82,12 @@ void handleRoot() {
 }
 
 void handleSubmit() {
-  lcd1.clear(); // wyczyść ekran 
+  lcd1.clear();  // wyczyść ekran
   lcd2.clear();
   lcd3.clear();
   lcd4.clear();
   lcd5.clear();
+
   if (server.hasArg("text_line1")) {
     text_line1 = server.arg("text_line1");
     lcd1.setCursor(0, 0);
@@ -101,7 +99,7 @@ void handleSubmit() {
       EEPROM.write(address_line1 + i, text_line1[i]);
     }
     EEPROM.write(address_line1 + length_line1, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                   // Potwierdź zapis do pamięci EEPROM
   }
 
   if (server.hasArg("text_line2")) {
@@ -115,7 +113,7 @@ void handleSubmit() {
       EEPROM.write(address_line2 + i, text_line2[i]);
     }
     EEPROM.write(address_line2 + length_line2, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                   // Potwierdź zapis do pamięci EEPROM
   }
 
   if (server.hasArg("text_line3")) {
@@ -129,7 +127,7 @@ void handleSubmit() {
       EEPROM.write(address_line3 + i, text_line3[i]);
     }
     EEPROM.write(address_line3 + length_line3, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                   // Potwierdź zapis do pamięci EEPROM
   }
 
   if (server.hasArg("text_line4")) {
@@ -143,11 +141,11 @@ void handleSubmit() {
       EEPROM.write(address_line4 + i, text_line4[i]);
     }
     EEPROM.write(address_line4 + length_line4, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                   // Potwierdź zapis do pamięci EEPROM
   }
 
   if (server.hasArg("text_line5")) {
-    text_line4 = server.arg("text_line5");
+    text_line5 = server.arg("text_line5");
     lcd3.setCursor(0, 0);
     lcd3.print(text_line5);
 
@@ -157,7 +155,7 @@ void handleSubmit() {
       EEPROM.write(address_line5 + i, text_line5[i]);
     }
     EEPROM.write(address_line5 + length_line5, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                   // Potwierdź zapis do pamięci EEPROM
   }
 
   if (server.hasArg("text_line6")) {
@@ -171,7 +169,7 @@ void handleSubmit() {
       EEPROM.write(address_line6 + i, text_line6[i]);
     }
     EEPROM.write(address_line6 + length_line6, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                   // Potwierdź zapis do pamięci EEPROM
   }
 
   if (server.hasArg("text_line7")) {
@@ -185,7 +183,7 @@ void handleSubmit() {
       EEPROM.write(address_line7 + i, text_line7[i]);
     }
     EEPROM.write(address_line7 + length_line7, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                   // Potwierdź zapis do pamięci EEPROM
   }
 
   if (server.hasArg("text_line8")) {
@@ -199,7 +197,7 @@ void handleSubmit() {
       EEPROM.write(address_line8 + i, text_line8[i]);
     }
     EEPROM.write(address_line8 + length_line8, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                   // Potwierdź zapis do pamięci EEPROM
   }
 
 
@@ -214,7 +212,7 @@ void handleSubmit() {
       EEPROM.write(address_line9 + i, text_line9[i]);
     }
     EEPROM.write(address_line9 + length_line9, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                   // Potwierdź zapis do pamięci EEPROM
   }
 
   if (server.hasArg("text_line10")) {
@@ -228,7 +226,7 @@ void handleSubmit() {
       EEPROM.write(address_line10 + i, text_line10[i]);
     }
     EEPROM.write(address_line10 + length_line10, '\0');  // Zapisz znak null na końcu
-    EEPROM.commit();  // Potwierdź zapis do pamięci EEPROM
+    EEPROM.commit();                                     // Potwierdź zapis do pamięci EEPROM
   }
 
 
@@ -241,35 +239,35 @@ void setup() {
   lcd1.init();  // Inicjalizacja pierwszego wyświetlacza
   lcd1.backlight();
   lcd1.setCursor(0, 0);
-  lcd1.print("Welcome!");
+  lcd1.print("Welcome 1!");
   lcd1.setCursor(0, 1);
   lcd1.print(":D");
 
   lcd2.init();  // Inicjalizacja drugiego wyświetlacza
   lcd2.backlight();
   lcd2.setCursor(0, 0);
-  lcd2.print("Welcome!");
+  lcd2.print("Welcome 2!");
   lcd2.setCursor(0, 1);
   lcd2.print(":D");
 
   lcd3.init();  // Inicjalizacja drugiego wyświetlacza
   lcd3.backlight();
   lcd3.setCursor(0, 0);
-  lcd3.print("Welcome!");
+  lcd3.print("Welcome 3!");
   lcd3.setCursor(0, 1);
   lcd3.print(":D");
 
   lcd4.init();  // Inicjalizacja drugiego wyświetlacza
   lcd4.backlight();
   lcd4.setCursor(0, 0);
-  lcd4.print("Welcome!");
+  lcd4.print("Welcome 4!");
   lcd4.setCursor(0, 1);
   lcd4.print(":D");
 
   lcd5.init();  // Inicjalizacja drugiego wyświetlacza
   lcd5.backlight();
   lcd5.setCursor(0, 0);
-  lcd5.print("Welcome!");
+  lcd5.print("Welcome 5!");
   lcd5.setCursor(0, 1);
   lcd5.print(":D");
 
@@ -567,7 +565,6 @@ void loop() {
     // lcd2.print(text_line3);
     // lcd2.setCursor(0, 1);
     // lcd2.print(text_line4);
-
   }
 
   delay(10000);
