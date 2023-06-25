@@ -553,18 +553,6 @@ void loop() {
       i++;
     }
 
-
-    // lcd1.clear();
-    // lcd1.setCursor(0, 0);
-    // lcd1.print(text_line1);
-    // lcd1.setCursor(0, 1);
-    // lcd1.print(text_line2);
-
-    // lcd2.clear();
-    // lcd2.setCursor(0, 0);
-    // lcd2.print(text_line3);
-    // lcd2.setCursor(0, 1);
-    // lcd2.print(text_line4);
   }
 
   delay(10000);
